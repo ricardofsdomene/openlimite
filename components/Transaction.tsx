@@ -56,7 +56,7 @@ export function Transaction({
             color: denied && hidden ? "#FC642D" : "#333",
           }}
         >
-          {hidden ? type : "---------------"}
+          {hidden ? type : "-------------"}
         </Text>
       </View>
       <View
