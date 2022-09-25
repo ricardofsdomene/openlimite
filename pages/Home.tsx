@@ -22,7 +22,11 @@ export default function Home() {
   const username = "Caio Arruda Ribeiro";
   const balance = "18.041,50";
 
-  const navigation = useNavigation();
+  type Navigator = {
+    navigate: (route: string, params: {}) => void;
+  };
+
+  const navigation = useNavigation<Navigator>();
 
   const [hidden, setHidden] = useState<boolean>(false);
 
@@ -411,7 +415,7 @@ export default function Home() {
         <Pressable
           onPress={() => {
             if (hidden) {
-              navigation.navigate("Transaction");
+              navigation.navigate("Transaction", {});
             }
           }}
           style={{
