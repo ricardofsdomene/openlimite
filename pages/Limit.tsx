@@ -210,6 +210,7 @@ export default function LimitScreen({}) {
             tentar liberar mais crédito aqui no BTG
           </Text>
           <Text
+            onPress={() => navigation.navigate("Termos de Serviço", {})}
             style={{
               marginTop: 10,
               fontSize: 14,
