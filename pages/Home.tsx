@@ -17,14 +17,11 @@ import Header from "../components/Header";
 import MasterCardLogo from "../assets/master.png";
 import VisaLogo from "../assets/visa.png";
 import { useNavigation } from "@react-navigation/native";
+import { Navigator } from "./utils";
 
 export default function Home() {
   const username = "Caio Arruda Ribeiro";
   const balance = "18.041,50";
-
-  type Navigator = {
-    navigate: (route: string, params: {}) => void;
-  };
 
   const navigation = useNavigation<Navigator>();
 
@@ -256,7 +253,6 @@ export default function Home() {
       </View>
     );
   }
-
   function Limits() {
     function Limit({
       status = "Em aberto",
@@ -266,7 +262,12 @@ export default function Home() {
       available = 3041.5,
     }) {
       return (
-        <View
+        <Pressable
+          onPress={() => {
+            if (hidden) {
+              navigation.navigate("Limite", {});
+            }
+          }}
           style={{
             backgroundColor: "#f0f0f0",
             shadowColor: "#171717",
@@ -358,7 +359,7 @@ export default function Home() {
               <View
                 style={{
                   borderRadius: 50,
-                  backgroundColor: "#333",
+                  backgroundColor: "#151A49",
                   height: 10,
                   width: "33%",
                 }}
@@ -366,26 +367,18 @@ export default function Home() {
             )}
           </View>
           {hidden && (
-            <TouchableOpacity
+            <Text
               style={{
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
+                marginTop: 25,
+                color: "#333",
+                fontSize: 16,
+                fontWeight: "bold",
               }}
             >
-              <Text
-                style={{
-                  marginTop: 25,
-                  color: "#333",
-                  fontSize: 16,
-                  fontWeight: "bold",
-                }}
-              >
-                Aumentar meu limite
-              </Text>
-            </TouchableOpacity>
+              Aumentar meu limite
+            </Text>
           )}
-        </View>
+        </Pressable>
       );
     }
 
@@ -415,7 +408,7 @@ export default function Home() {
         <Pressable
           onPress={() => {
             if (hidden) {
-              navigation.navigate("Transaction", {});
+              navigation.navigate("Transações", {});
             }
           }}
           style={{

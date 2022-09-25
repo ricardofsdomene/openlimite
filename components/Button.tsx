@@ -1,21 +1,36 @@
 import React from "react";
 
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  Pressable,
+} from "react-native";
 
 type ButtonProps = {
+  bg?: string;
+  mt?: number;
+  mb?: number;
+  ml?: number;
+  mr?: number;
   cta?: string;
   onPress(): void;
 };
 
 export default function Button(value: ButtonProps) {
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => value.onPress()}
       style={{
+        marginTop: value.mt ? value.mt : 0,
+        marginBottom: value.mb ? value.mb : 0,
+        marginLeft: value.ml ? value.ml : 0,
+        marginRight: value.mr ? value.mr : 0,
         borderRadius: 5,
         height: 45,
         width: Dimensions.get("window").width - 40,
-        backgroundColor: "#00C389",
+        backgroundColor: value.bg ? value.bg : "#00C389",
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -24,11 +39,11 @@ export default function Button(value: ButtonProps) {
         style={{
           fontWeight: "bold",
           color: "#FFF",
-          fontSize: 18,
+          fontSize: 16,
         }}
       >
         {value.cta}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
