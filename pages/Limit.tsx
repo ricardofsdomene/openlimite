@@ -596,7 +596,7 @@ export default function LimitScreen({}) {
             <Slider
               onValueChange={(value) => {
                 const valueChange = value.toFixed(0);
-                setSelectedLimit(valueChange);
+                setSelectedLimit(Number(valueChange));
               }}
               style={{ width: "100%", height: 40 }}
               minimumValue={openLimiteResponse.data.current}

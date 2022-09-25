@@ -71,7 +71,7 @@ export function Card({
             <Image
               source={VisaLogo}
               style={{
-                width: 50,
+                width: 48,
               }}
             />
           )}

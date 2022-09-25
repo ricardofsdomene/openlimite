@@ -317,14 +317,29 @@ export default function HomeScreen() {
           Transações
         </Text>
         {accountTransactions.map((cardTx, i) => {
-          return (
-            <Transaction
-              key={i}
-              provider={cardTx.transactionName}
-              type={cardTx.creditDebitType}
-              amount={cardTx.amount}
-            />
-          );
+          if (hidden) {
+            return (
+              <Transaction
+                hidden={hidden}
+                key={i}
+                provider={cardTx.transactionName}
+                type={cardTx.creditDebitType}
+                amount={cardTx.amount}
+              />
+            );
+          } else {
+            if (i < 3) {
+              return (
+                <Transaction
+                  hidden={hidden}
+                  key={i}
+                  provider={cardTx.transactionName}
+                  type={cardTx.creditDebitType}
+                  amount={cardTx.amount}
+                />
+              );
+            }
+          }
         })}
       </View>
     );
