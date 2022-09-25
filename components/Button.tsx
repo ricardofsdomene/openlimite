@@ -30,7 +30,7 @@ export default function Button(value: ButtonProps) {
         borderRadius: 5,
         height: 45,
         width: Dimensions.get("window").width - 40,
-        backgroundColor: value.bg ? value.bg : "#00C389",
+        backgroundColor: value.bg ? value.bg : "#02C567",
         justifyContent: "center",
         alignItems: "center",
       }}

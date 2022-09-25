@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   View,
@@ -18,14 +18,20 @@ import MasterCardLogo from "../assets/master.png";
 import VisaLogo from "../assets/visa.png";
 import { useNavigation } from "@react-navigation/native";
 import { Navigator } from "./utils";
+import {
+  ContextProvider,
+  UserContextProvider,
+} from "../context/ContextProvider";
 
 export default function Home() {
-  const username = "Caio Arruda Ribeiro";
-  const balance = "18.041,50";
+  const { account, user, balance } = useContext(ContextProvider);
+
+  const username = user.name;
+  const available_balance = balance.availableAmount;
 
   const navigation = useNavigation<Navigator>();
 
-  const [hidden, setHidden] = useState<boolean>(false);
+  const [hidden, setHidden] = useState<boolean>(true);
 
   function Greeting() {
     return (
@@ -72,7 +78,12 @@ export default function Home() {
                 fontWeight: "bold",
               }}
             >
-              {hidden ? `R$${balance}` : "-------"}
+              {hidden
+                ? `${available_balance.toLocaleString("pt-br", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}`
+                : "-------"}
             </Text>
             <Entypo
               onPress={() => setHidden(!hidden)}
