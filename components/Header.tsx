@@ -14,9 +14,6 @@ export default function Header({ goBack = false }) {
       style={{
         height: 100,
         width: Dimensions.get("window").width,
-        paddingTop: Platform.OS === "ios" ? 30 : 10,
-        backgroundColor: "#051429",
-        paddingHorizontal: 20,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -24,10 +21,11 @@ export default function Header({ goBack = false }) {
       <Text
         style={{
           fontSize: 30,
-          color: "#FFF",
+          color: "#051429",
         }}
       >
-        <Text style={{ fontWeight: "bold" }}>#BTG</Text>FazTech
+        <Text style={{ fontWeight: "bold", color: "#051429" }}>#BTG</Text>
+        FazTech
       </Text>
     </View>
   );
