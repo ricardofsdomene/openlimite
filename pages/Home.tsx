@@ -26,7 +26,15 @@ import { Transaction } from "../components/Transaction";
 import { Card } from "../components/Card";
 
 export default function HomeScreen() {
-  const { account, user, balance, cards } = useContext(ContextProvider);
+  const {
+    account,
+    accountTransactions,
+    user,
+    balance,
+    cardTransactions,
+    cardLimit,
+    cards,
+  } = useContext(ContextProvider);
 
   const username = user.name;
   const available_balance = balance.availableAmount;
@@ -130,10 +138,13 @@ export default function HomeScreen() {
     function Limit({
       status = "Em aberto",
       exp = "05/10",
-      limit = 5000,
-      spent = 1958.5,
-      available = 3041.5,
+      limit = cardLimit.limitAmount,
+      spent = cardLimit.usedAmount,
+      available = cardLimit.availableAmount,
     }) {
+      const realLimit = limit - spent;
+      const percentageSpent = (spent / limit) * 100;
+
       return (
         <Pressable
           onPress={() => {
@@ -211,7 +222,7 @@ export default function HomeScreen() {
                 }}
               >
                 {hidden
-                  ? available.toLocaleString("pt-br", {
+                  ? realLimit.toLocaleString("pt-br", {
                       style: "currency",
                       currency: "BRL",
                     })
@@ -234,7 +245,7 @@ export default function HomeScreen() {
                   borderRadius: 50,
                   backgroundColor: "#151A49",
                   height: 10,
-                  width: "33%",
+                  width: `${percentageSpent}%`,
                 }}
               />
             )}
@@ -270,7 +281,11 @@ export default function HomeScreen() {
         >
           Limite atual
         </Text>
-        <Limit />
+        <Limit
+          available={cardLimit.availableAmount}
+          spent={cardLimit.usedAmount}
+          limit={cardLimit.limitAmount}
+        />
       </View>
     );
   }
@@ -291,12 +306,16 @@ export default function HomeScreen() {
         >
           Transações
         </Text>
-        <Transaction provider="Mercado Livre" amount={780} denied />
-        <Transaction provider="Uber" amount={22.08} />
-        <Transaction provider="Uber" amount={17.83} />
-        <Transaction provider="IFood" amount={45.33} />
-        <Transaction provider="Binance" amount={1300} />
-        <Transaction provider="Uber" amount={12.63} />
+        {accountTransactions.map((cardTx, i) => {
+          return (
+            <Transaction
+              key={i}
+              provider={cardTx.transactionName}
+              type={cardTx.creditDebitType}
+              amount={cardTx.amount}
+            />
+          );
+        })}
       </View>
     );
   }

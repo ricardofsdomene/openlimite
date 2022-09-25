@@ -9,6 +9,10 @@ import { CardLimit } from "../models/card/limit";
 import { CardTransaction } from "../models/card/transaction";
 import { User } from "../models/user";
 
+type ChangeCardLimitData = {
+  amount: number;
+};
+
 type ProviderContextData = {
   user: User;
   account: Account;
@@ -19,6 +23,7 @@ type ProviderContextData = {
   cardLimit: CardLimit;
   cardTransactions: CardTransaction[];
   cardBills: CardBill[];
+  changeLimit: (value: ChangeCardLimitData) => void;
 };
 
 type ProviderContextProps = {
@@ -53,7 +58,7 @@ export function UserContextProvider({ children }: ProviderContextProps) {
     customerId: "595.080.896-84",
     organizationId: "69665991-da55-4aac-a1f2-32d23daba8fe",
     organizationName: "Instituição Financeira 03",
-    availableAmount: -1241.64,
+    availableAmount: 2241.64,
     availableAmountCurrency: "BRL",
     blockedAmount: 0,
     blockedAmountCurrency: "BRL",
@@ -777,11 +782,11 @@ export function UserContextProvider({ children }: ProviderContextProps) {
     identificationNumber: "2218",
     isLimitFlexible: true,
     limitAmountCurrency: "BRL",
-    limitAmount: 14446.89,
+    limitAmount: 5000,
     usedAmountCurrency: "BRL",
-    usedAmount: 8490.13,
+    usedAmount: 3000,
     availableAmountCurrency: "BRL",
-    availableAmount: 5956.76,
+    availableAmount: 2000,
   });
 
   const [cardTransactions, setCardTransactions] = useState<CardTransaction[]>([
@@ -939,9 +944,17 @@ export function UserContextProvider({ children }: ProviderContextProps) {
     },
   ]);
 
+  function changeLimit({ amount }: ChangeCardLimitData) {
+    setCardLimit({
+      ...cardLimit,
+      limitAmount: amount,
+    });
+  }
+
   return (
     <ContextProvider.Provider
       value={{
+        changeLimit,
         user,
         account,
         balance,

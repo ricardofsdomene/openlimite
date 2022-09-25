@@ -6,7 +6,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
-import Transaction from "./pages/Transaction";
 import Limit from "./pages/Limit";
 import { UserContextProvider } from "./context/ContextProvider";
 import Card from "./pages/Card";
@@ -25,7 +24,6 @@ export default function App() {
               presentation: "modal",
             }}
           >
-            <Stack.Screen name="Transações" component={Transaction} />
             <Stack.Screen name="Limite" component={Limit} />
             <Stack.Screen name="Cartão" component={Card} />
           </Stack.Group>

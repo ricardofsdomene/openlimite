@@ -31,6 +31,7 @@ export function Transactions(value: TransactionsType) {
         data={value.transactions}
         renderItem={(data) => (
           <Transaction
+            id={data.item.transactionId}
             amount={data.item.amount}
             provider={data.item.transactionName}
             type={data.item.creditDebitType}

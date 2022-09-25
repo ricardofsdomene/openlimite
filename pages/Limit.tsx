@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import Slider from "@react-native-community/slider";
 
@@ -15,8 +15,11 @@ import {
 import Button from "../components/Button";
 import { Navigator } from "./utils";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { ContextProvider } from "../context/ContextProvider";
 
 export default function LimitScreen({}) {
+  const { cardLimit, changeLimit } = useContext(ContextProvider);
+
   const navigation = useNavigation<Navigator>();
 
   const [hidden, setHidden] = useState<boolean>(true);
@@ -54,10 +57,13 @@ export default function LimitScreen({}) {
   function Limit({
     status = "Em aberto",
     exp = "05/10",
-    limit = 5000,
-    spent = 1958.5,
-    available = 3041.5,
+    limit = cardLimit.limitAmount,
+    spent = cardLimit.usedAmount,
+    available = cardLimit.availableAmount,
   }) {
+    const realLimit = limit - spent;
+    const percentageSpent = (spent / limit) * 100;
+
     return (
       <Pressable
         onPress={() => {
@@ -136,7 +142,7 @@ export default function LimitScreen({}) {
               }}
             >
               {hidden
-                ? available.toLocaleString("pt-br", {
+                ? realLimit.toLocaleString("pt-br", {
                     style: "currency",
                     currency: "BRL",
                   })
@@ -159,7 +165,7 @@ export default function LimitScreen({}) {
                 borderRadius: 50,
                 backgroundColor: "#151A49",
                 height: 10,
-                width: "33%",
+                width: `${percentageSpent}%`,
               }}
             />
           )}
@@ -197,6 +203,16 @@ export default function LimitScreen({}) {
           >
             Agora você pode se conectar com sua conta de outra instituição para
             tentar liberar mais crédito aqui no BTG
+          </Text>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 14,
+              color: "#555",
+              textDecorationLine: "underline",
+            }}
+          >
+            Consulte aqui os termos de serviço.
           </Text>
           <Button
             onPress={() =>
@@ -239,7 +255,11 @@ export default function LimitScreen({}) {
           justifyContent: "space-between",
         }}
       >
-        <Limit />
+        <Limit
+          available={cardLimit.availableAmount}
+          limit={cardLimit.limitAmount}
+          spent={cardLimit.usedAmount}
+        />
         <HeadLine />
       </View>
     );
@@ -334,7 +354,9 @@ export default function LimitScreen({}) {
           mt={20}
           bg="#151A49"
           cta="Voltar para o início"
-          onPress={() => navigation.navigate("#BTGFazTech - OpenLimite", {})}
+          onPress={() => {
+            navigation.navigate("#BTGFazTech - OpenLimite", {});
+          }}
         />
       </View>
     );
@@ -429,7 +451,12 @@ export default function LimitScreen({}) {
         <Button
           mt={20}
           cta="Voltar para o início"
-          onPress={() => navigation.navigate("#BTGFazTech - OpenLimite", {})}
+          onPress={() => {
+            navigation.navigate("#BTGFazTech - OpenLimite", {});
+            changeLimit({
+              amount: selectedLimit,
+            });
+          }}
         />
       </View>
     ) : (

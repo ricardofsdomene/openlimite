@@ -11,6 +11,7 @@ import { Navigator } from "../pages/utils";
 import { AntDesign } from "@expo/vector-icons";
 
 export function Transaction({
+  id = "",
   hidden = true,
   amount = 0,
   provider = "",
@@ -21,11 +22,6 @@ export function Transaction({
 
   return (
     <Pressable
-      onPress={() => {
-        if (hidden) {
-          navigation.navigate("Transações", {});
-        }
-      }}
       style={{
         display: "flex",
         flexDirection: "row",
