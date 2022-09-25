@@ -5,6 +5,7 @@ import {
   Text,
   Pressable,
   Dimensions,
+  Platform,
 } from "react-native";
 import { Navigator } from "../pages/utils";
 
@@ -67,10 +68,15 @@ export function Transaction({
           }}
         >
           {hidden
-            ? amount.toLocaleString("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              })
+            ? Platform.OS === "ios"
+              ? amount.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })
+              : `R$ ${amount.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })}`
             : "--------"}
         </Text>
         {denied && hidden && (

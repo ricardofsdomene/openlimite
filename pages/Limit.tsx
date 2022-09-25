@@ -142,10 +142,15 @@ export default function LimitScreen({}) {
               }}
             >
               {hidden
-                ? realLimit.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })
+                ? Platform.OS === "ios"
+                  ? realLimit.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })
+                  : `R$ ${realLimit.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}`
                 : "------------"}
             </Text>
           </View>
@@ -437,15 +442,20 @@ export default function LimitScreen({}) {
             }}
           >
             {selectedLimit > 0
-              ? selectedLimit.toLocaleString("pt-br", {
-                  style: "currency",
-                  currency: "BRL",
-                })
+              ? Platform.OS === "ios"
+                ? selectedLimit.toLocaleString("pt-br", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                : `R$ ${selectedLimit.toLocaleString("pt-br", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}`
               : openLimiteResponse.data.amount &&
-                openLimiteResponse.data.amount.toLocaleString("pt-br", {
+                `R$ ${openLimiteResponse.data.amount.toLocaleString("pt-br", {
                   style: "currency",
                   currency: "BRL",
-                })}
+                })}`}
           </Text>
         </View>
         <Button
@@ -528,11 +538,19 @@ export default function LimitScreen({}) {
                   color: "#333",
                 }}
               >
-                {openLimiteResponse.data.amount &&
-                  openLimiteResponse.data.amount.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
+                {Platform.OS === "ios"
+                  ? openLimiteResponse.data.amount &&
+                    openLimiteResponse.data.amount.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })
+                  : `R$ ${
+                      openLimiteResponse.data.amount &&
+                      openLimiteResponse.data.amount.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })
+                    }`}
               </Text>
             </View>
 
@@ -562,17 +580,23 @@ export default function LimitScreen({}) {
                 }}
               >
                 {selectedLimit
-                  ? selectedLimit.toLocaleString("pt-br", {
-                      style: "currency",
-                      currency: "BRL",
-                    })
+                  ? Platform.OS === "ios"
+                    ? selectedLimit.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })
+                    : `R$ ${selectedLimit.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}`
                   : openLimiteResponse.data.amount}
               </Text>
             </View>
 
             <Slider
               onValueChange={(value) => {
-                setSelectedLimit(value);
+                const valueChange = value.toFixed(0);
+                setSelectedLimit(valueChange);
               }}
               style={{ width: "100%", height: 40 }}
               minimumValue={openLimiteResponse.data.current}

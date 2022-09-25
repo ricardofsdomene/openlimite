@@ -89,10 +89,15 @@ export default function HomeScreen() {
               }}
             >
               {hidden
-                ? `${available_balance.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}`
+                ? Platform.OS === "ios"
+                  ? `${available_balance.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}`
+                  : `R$ ${available_balance.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}`
                 : "-------"}
             </Text>
             <Entypo
@@ -222,10 +227,15 @@ export default function HomeScreen() {
                 }}
               >
                 {hidden
-                  ? realLimit.toLocaleString("pt-br", {
-                      style: "currency",
-                      currency: "BRL",
-                    })
+                  ? Platform.OS === "ios"
+                    ? realLimit.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })
+                    : `R$ ${realLimit.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}`
                   : "------------"}
               </Text>
             </View>
