@@ -8,8 +8,9 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  StatusBar,
 } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import Header from "../components/Header";
 
 import MasterCardLogo from "../assets/master.png";
@@ -32,8 +33,10 @@ export default function Home() {
       >
         <Text
           style={{
+            marginTop: 10,
             color: "#333",
             fontSize: 26,
+            fontWeight: "300",
           }}
         >
           Olá, {username.split(" ")[0]}
@@ -41,12 +44,13 @@ export default function Home() {
         <View>
           <Text
             style={{
-              marginTop: 20,
+              marginTop: 40,
               color: "#333",
               fontSize: 16,
+              fontWeight: "300",
             }}
           >
-            Sua fatura atual
+            Seu saldo é
           </Text>
           <View
             style={{
@@ -67,7 +71,7 @@ export default function Home() {
             </Text>
             <Entypo
               onPress={() => setHidden(!hidden)}
-              name={hidden ? "eye-with-line" : "eye"}
+              name={hidden ? "eye" : "eye-with-line"}
               size={26}
               color="black"
             />
@@ -105,7 +109,8 @@ export default function Home() {
             <Text
               style={{
                 color: "#333",
-                fontSize: 20,
+                fontSize: 18,
+                fontWeight: "300",
               }}
             >
               {username}
@@ -223,7 +228,7 @@ export default function Home() {
       >
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             color: "#333",
             marginBottom: 10,
           }}
@@ -280,7 +285,7 @@ export default function Home() {
                   color: "#333",
                 }}
               >
-                {status}
+                {hidden ? status : "--------"}
               </Text>
             </View>
             <View>
@@ -298,13 +303,13 @@ export default function Home() {
                   color: "#333",
                 }}
               >
-                {exp}
+                {hidden ? exp : "----"}
               </Text>
             </View>
             <View>
               <Text
                 style={{
-                  color: "#ff0000",
+                  color: "#FC642D",
                 }}
               >
                 Disponível
@@ -313,13 +318,15 @@ export default function Home() {
                 style={{
                   fontWeight: "bold",
                   fontSize: 18,
-                  color: "#ff0000",
+                  color: "#FC642D",
                 }}
               >
-                {available.toLocaleString("pt-br", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
+                {hidden
+                  ? available.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })
+                  : "------------"}
               </Text>
             </View>
           </View>
@@ -329,29 +336,40 @@ export default function Home() {
               marginTop: 20,
               height: 10,
               width: "100%",
-              backgroundColor: "#FF0000",
+              backgroundColor: "#FC642D",
             }}
           >
-            <View
-              style={{
-                borderRadius: 50,
-                backgroundColor: "#333",
-                height: 10,
-                width: "33%",
-              }}
-            />
+            {hidden && (
+              <View
+                style={{
+                  borderRadius: 50,
+                  backgroundColor: "#333",
+                  height: 10,
+                  width: "33%",
+                }}
+              />
+            )}
           </View>
-          <Text
-            style={{
-              marginTop: 20,
-              color: "#333",
-              fontSize: 20,
-              fontWeight: "bold",
-              textDecorationLine: "underline",
-            }}
-          >
-            Aumentar meu limite
-          </Text>
+          {hidden && (
+            <TouchableOpacity
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  marginTop: 25,
+                  color: "#333",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                Aumentar meu limite
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       );
     }
@@ -364,7 +382,7 @@ export default function Home() {
       >
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             color: "#333",
             marginBottom: 10,
           }}
@@ -376,13 +394,110 @@ export default function Home() {
     );
   }
 
+  function Transactions() {
+    function Transaction({ amount = 0, provider = "", denied = false }) {
+      return (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginBottom: 10,
+            paddingVertical: 15,
+            paddingHorizontal: 20,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: denied && hidden ? "#FC642D" : "#e0e0e0",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <Text
+              style={{
+                fontSize: 14,
+                color: denied && hidden ? "#FC642D" : "#333",
+              }}
+            >
+              {hidden ? provider : "---------------"}
+            </Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 12,
+                color: denied && hidden ? "#FC642D" : "#333",
+              }}
+            >
+              {hidden ? "Cartão *5557" : "---------------"}
+            </Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                color: denied && hidden ? "#FC642D" : "#333",
+              }}
+            >
+              {hidden
+                ? amount.toLocaleString("pt-br", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                : "--------"}
+            </Text>
+            {denied && hidden && (
+              <AntDesign
+                style={{
+                  marginLeft: 7.5,
+                }}
+                name="warning"
+                color="#FC642D"
+                size={14}
+              />
+            )}
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View
+        style={{
+          padding: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 18,
+            color: "#333",
+            marginBottom: 10,
+          }}
+        >
+          Transações
+        </Text>
+        <Transaction provider="Mercado Livre" amount={780} denied />
+        <Transaction provider="Uber" amount={22.08} />
+        <Transaction provider="Uber" amount={17.83} />
+        <Transaction provider="IFood" amount={45.33} />
+        <Transaction provider="Binance" amount={1300} />
+        <Transaction provider="Uber" amount={12.63} />
+      </View>
+    );
+  }
+
   return (
     <>
+      <StatusBar barStyle="light-content" />
       <Header />
       <ScrollView>
         <Greeting />
         <Cards />
         <Limits />
+        <Transactions />
       </ScrollView>
     </>
   );
