@@ -454,7 +454,7 @@ export default function LimitScreen({}) {
           onPress={() => {
             navigation.navigate("#BTGFazTech - OpenLimite", {});
             changeLimit({
-              amount: selectedLimit > 0 ? selectedLimit : cardLimit.limitAmount,
+              amount: selectedLimit > 0 ? selectedLimit : 15000,
             });
           }}
         />
