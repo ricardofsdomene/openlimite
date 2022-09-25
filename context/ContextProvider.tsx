@@ -74,7 +74,9 @@ export function UserContextProvider({ children }: ProviderContextProps) {
     unarrangedOverdraftAmountCurrency: "BRL",
   });
 
-  const [accountTransactions, setAccountTransactions] = useState<AccountTransaction[]>([
+  const [accountTransactions, setAccountTransactions] = useState<
+    AccountTransaction[]
+  >([
     {
       accountId: "dc728105-74a5-47fe-b18c-23a6c855ed30",
       customerId: "595.080.896-84",
@@ -580,6 +582,14 @@ export function UserContextProvider({ children }: ProviderContextProps) {
   const [cards, setCards] = useState<Card[]>([
     {
       creditCardAccountId: "0b899b56-2f36-46c4-a594-b2a921f45575",
+      creditCardInfo: {
+        holder_name: "Ricardo Sarti Domene",
+        issuer: "VISA",
+        number: "4024 0071 3301 2129",
+        exp_month: "10",
+        exp_year: "2024",
+        cvv: "171",
+      },
       customerId: "595.080.896-84",
       organizationId: "69665991-da55-4aac-a1f2-32d23daba8fe",
       organizationName: "Instituição Financeira 03",

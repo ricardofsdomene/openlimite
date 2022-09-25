@@ -16,7 +16,7 @@ import Header from "../components/Header";
 import MasterCardLogo from "../assets/master.png";
 import VisaLogo from "../assets/visa.png";
 
-export default function Transaction() {
+export default function TransactionScreen() {
   const username = "Thomaz Thurtz Mendes";
   const balance = "18.041,50";
 

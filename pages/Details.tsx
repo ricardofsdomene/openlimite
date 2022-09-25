@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Platform } from "react-native";
 import Header from "../components/Header";
 
-export default function Details() {
+export default function DetailsScreen() {
   return (
     <View
       style={{

@@ -9,6 +9,7 @@ import Details from "./pages/Details";
 import Transaction from "./pages/Transaction";
 import Limit from "./pages/Limit";
 import { UserContextProvider } from "./context/ContextProvider";
+import Card from "./pages/Card";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
           >
             <Stack.Screen name="Transações" component={Transaction} />
             <Stack.Screen name="Limite" component={Limit} />
+            <Stack.Screen name="Cartão" component={Card} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>

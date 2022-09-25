@@ -22,9 +22,11 @@ import {
   ContextProvider,
   UserContextProvider,
 } from "../context/ContextProvider";
+import { Transaction } from "../components/Transaction";
+import { Card } from "../components/Card";
 
-export default function Home() {
-  const { account, user, balance } = useContext(ContextProvider);
+export default function HomeScreen() {
+  const { account, user, balance, cards } = useContext(ContextProvider);
 
   const username = user.name;
   const available_balance = balance.availableAmount;
@@ -98,147 +100,6 @@ export default function Home() {
   }
 
   function Cards() {
-    function Card({
-      name = username,
-      brand = "mastercard",
-      cvv = "555",
-      number = "5555 5555 5555 5557",
-      exp = "12/26",
-    }) {
-      return (
-        <View
-          style={{
-            borderRadius: 10,
-            padding: 20,
-            backgroundColor: "#f0f0f0",
-            shadowColor: "#171717",
-            shadowOffset: { width: 1, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 3,
-            width: "100%",
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                color: "#333",
-                fontSize: 18,
-                fontWeight: "300",
-              }}
-            >
-              {username.toLocaleUpperCase()}
-            </Text>
-            <Text
-              style={{
-                color: "#333",
-                fontSize: 20,
-              }}
-            >
-              {brand === "mastercard" ? (
-                <Image
-                  source={MasterCardLogo}
-                  style={{
-                    width: 40,
-                  }}
-                />
-              ) : (
-                <Image
-                  source={VisaLogo}
-                  style={{
-                    width: 50,
-                  }}
-                />
-              )}
-            </Text>
-          </View>
-          <View
-            style={{
-              marginVertical: 20,
-              height: 1,
-              width: "100%",
-            }}
-          />
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14,
-                }}
-              >
-                Número
-              </Text>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 18,
-                }}
-              >
-                {hidden ? number : `---- ---- ---- ${number.slice(-4)}`}
-              </Text>
-            </View>
-            <View
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14,
-                }}
-              >
-                CVV
-              </Text>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 18,
-                }}
-              >
-                {hidden ? cvv : "---"}
-              </Text>
-            </View>
-            <View
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14,
-                }}
-              >
-                Venc.
-              </Text>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 18,
-                }}
-              >
-                {hidden ? exp : "---"}
-              </Text>
-            </View>
-          </View>
-        </View>
-      );
-    }
-
     return (
       <View
         style={{
@@ -255,11 +116,12 @@ export default function Home() {
           Seus cartões
         </Text>
         <Card
+          hidden={hidden}
           brand="visa"
-          cvv="555"
-          exp="12/22"
+          cvv={cards[0].creditCardInfo?.cvv}
+          exp={`${cards[0].creditCardInfo?.exp_month}/${cards[0].creditCardInfo?.exp_year}`}
           name={username}
-          number="5555 5555 5555 5557"
+          number={cards[0].creditCardInfo?.number}
         />
       </View>
     );
@@ -414,80 +276,6 @@ export default function Home() {
   }
 
   function Transactions() {
-    function Transaction({ amount = 0, provider = "", denied = false }) {
-      return (
-        <Pressable
-          onPress={() => {
-            if (hidden) {
-              navigation.navigate("Transações", {});
-            }
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginBottom: 10,
-            paddingVertical: 15,
-            paddingHorizontal: 20,
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: denied && hidden ? "#FC642D" : "#e0e0e0",
-            width: "100%",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontSize: 14,
-                color: denied && hidden ? "#FC642D" : "#333",
-              }}
-            >
-              {hidden ? provider : "---------------"}
-            </Text>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 12,
-                color: denied && hidden ? "#FC642D" : "#333",
-              }}
-            >
-              {hidden ? "Cartão *5557" : "---------------"}
-            </Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <Text
-              style={{
-                color: denied && hidden ? "#FC642D" : "#333",
-              }}
-            >
-              {hidden
-                ? amount.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })
-                : "--------"}
-            </Text>
-            {denied && hidden && (
-              <AntDesign
-                style={{
-                  marginLeft: 7.5,
-                }}
-                name="warning"
-                color="#FC642D"
-                size={14}
-              />
-            )}
-          </View>
-        </Pressable>
-      );
-    }
-
     return (
       <View
         style={{

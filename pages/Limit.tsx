@@ -16,7 +16,7 @@ import Button from "../components/Button";
 import { Navigator } from "./utils";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
-export default function Limit({}) {
+export default function LimitScreen({}) {
   const navigation = useNavigation<Navigator>();
 
   const [hidden, setHidden] = useState<boolean>(true);
