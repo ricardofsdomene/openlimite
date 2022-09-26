@@ -1,7 +1,9 @@
 # openlimite
 
-The drive link above is our overview
+The drive link above is our pitchdeck
+https://drive.google.com/file/d/1fNCFqnIZmNnzPnl7_2DPzRzOfj9Qaaa7/view?usp=sharing
 
+The drive link above is our overview
 https://drive.google.com/file/d/14nSLRjm63xUmW97D1SjZE80lZT7H3Zko/view?usp=drivesdk
 
 This project was made using expo, that is a React Native SuperSet
