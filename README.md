@@ -1,5 +1,9 @@
 # openlimite
 
+##The drive link above is our overview
+
+https://drive.google.com/file/d/14nSLRjm63xUmW97D1SjZE80lZT7H3Zko/view?usp=drivesdk
+
 This project was made using expo, that is a React Native SuperSet
 To run the project you must have Node.Js installed in your computer
 Also you must have expo dependecy installed globally in your test env.
