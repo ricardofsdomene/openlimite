@@ -8,7 +8,7 @@ To install expo globally you can run the following:
 ```npm i -g expo ```
 
 For testing in a physical device you must go to your app store and install
-##Expo Go
+Expo Go
 - Run the following command to start the application in development mode
 ```npm run start```
 - Make sure that your device and your computer is running on the same network
