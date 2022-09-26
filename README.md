@@ -1,6 +1,6 @@
 # openlimite
 
-##The drive link above is our overview
+The drive link above is our overview
 
 https://drive.google.com/file/d/14nSLRjm63xUmW97D1SjZE80lZT7H3Zko/view?usp=drivesdk
 
