@@ -7,6 +7,10 @@ Also you must have expo dependecy installed globally in your test env.
 To install expo globally you can run the following:
 ```npm i -g expo ```
 
+Than you jump into the repository and install all the dependencies
+- To this running the following command
+```npm install```
+
 For testing in a physical device you must go to your app store and install
 Expo Go
 - Run the following command to start the application in development mode
